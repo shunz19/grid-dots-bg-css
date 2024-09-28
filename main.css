@@ -1,0 +1,52 @@
+:root {
+	--bg-color: rgb(26, 30, 37);
+	--dot-size: 2px;
+	--dot-color: white;
+	--spacing: 2.5em;
+}
+
+body {
+	width: 100vw;
+	height: 100vh;
+	margin: 0;
+	background: var(--dot-color);
+}
+
+.bg {
+	position: fixed;
+	inset: 0;
+	background: radial-gradient(
+		circle,
+		transparent var(--dot-size),
+		var(--bg-color) var(--dot-size)
+	);
+	background-size: var(--spacing) var(--spacing);
+	background-repeat: repeat;
+	z-index: 1;
+}
+
+.cursor {
+	position: fixed;
+	top: 0;
+	left: 0;
+	pointer-events: none;
+	width: 30em;
+	height: 30em;
+	border-radius: 100%;
+	background: radial-gradient(circle, green, transparent 100%);
+	transform: translate(-50%, -50%);
+	z-index: 1;
+}
+
+.glower {
+	position: fixed;
+	top: 0;
+	left: 0;
+	pointer-events: none;
+	width: max(50vw, 50vh);
+	height: max(50vw, 50vh);
+	border-radius: 100%;
+	background: radial-gradient(circle, var(--bg-color), transparent 50%);
+	transform: translate(-50%, -50%);
+	opacity: 0.5;
+}

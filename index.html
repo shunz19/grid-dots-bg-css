@@ -1,0 +1,71 @@
+<html>
+	<head>
+		<link rel="stylesheet" type="text/css" href="main.css" />
+	</head>
+	<body>
+		<div class="cursor"></div>
+		<div class="bg"></div>
+		<script>
+			const cursor = document.querySelector(".cursor");
+			let mouseX = 0,
+				mouseY = 0;
+			let posX = 0,
+				posY = 0;
+
+			window.addEventListener("mousemove", (e) => {
+				mouseX = e.pageX;
+				mouseY = e.pageY;
+			});
+
+			function smoothCursor() {
+				posX += (mouseX - posX) * 0.1;
+				posY += (mouseY - posY) * 0.1;
+
+				cursor.style.left = posX + "px";
+				cursor.style.top = posY + "px";
+
+				setTimeout(smoothCursor, 16); // approximately 60fps
+			}
+
+			smoothCursor();
+			function createTargetedCursor(targetX, targetY) {
+				const newCursor = document.createElement("div");
+				newCursor.classList.add("glower");
+				newCursor.style.setProperty(
+					"--bg-color",
+					"hsl(" + Math.random() * 360 + ", 100%, 50%)"
+				);
+				document.body.appendChild(newCursor);
+				setInterval(() => {
+					targetX = Math.random() * window.innerWidth;
+					targetY = Math.random() * window.innerHeight;
+				}, 2000); // change target every 2 seconds
+				let posX = Math.random() * window.innerWidth;
+				let posY = Math.random() * window.innerHeight;
+
+				function moveToTarget() {
+					posX += (targetX - posX) * 0.005;
+					posY += (targetY - posY) * 0.005;
+
+					newCursor.style.left = posX + "px";
+					newCursor.style.top = posY + "px";
+
+					if (
+						Math.abs(targetX - posX) > 1 ||
+						Math.abs(targetY - posY) > 1
+					) {
+						setTimeout(moveToTarget, 16);
+					}
+				}
+
+				moveToTarget();
+			}
+
+			for (let i = 0; i < 10; i++) {
+				let targetX = Math.random() * window.innerWidth;
+				let targetY = Math.random() * window.innerHeight;
+				createTargetedCursor(targetX, targetY);
+			}
+		</script>
+	</body>
+</html>
